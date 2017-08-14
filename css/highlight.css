@@ -1,0 +1,25 @@
+.activeSearchResult {
+  border-left: 3px solid #4386fa !important;
+  transform: translate(-3px, 0) !important;
+}
+
+div.activeSearchResult[data-ved],
+div.activeSearchResult[data-hveid],
+li.ads-ad li.activeSearchResult,
+div.gs_r.activeSearchResult {
+  padding-left: 8px;
+  margin-left: -11px;
+  transform: none !important;
+}
+
+td.activeSearchResult {
+  padding-right: 0 !important;
+}
+
+body.useSimpleHighlight h3 a:focus:before {
+  content: '\25BA \00A0';
+}
+
+body.useHighlight h3 a:focus {
+  outline: 0;
+}

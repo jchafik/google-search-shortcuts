@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Search Keyboard Shortcuts Options</title>
+  <meta charset=utf-8 />
+  <style type="text/css">
+  body {
+    margin: 0 auto 10px;
+    width: 500px;
+    padding: 10px 20px 20px;
+  }
+
+  #actionContainer {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  #actionContainer button {
+    cursor: pointer;
+  }
+
+  .accent {
+    color: #339eca;
+  }
+
+  tr td:first-child {
+  }
+
+  tr td:nth-child(2) {
+    font-size: smaller;
+    padding-left: 20px;
+    color: #666;
+  }
+
+  label {
+    padding-left: 4px;
+  }
+
+  #otherFeatures > div {
+    margin-bottom: 4px;
+  }
+
+  #dialog {
+    text-align: center;
+    margin-top: -200px;
+    transition: all 1s ease-in-out;
+    background-color: #33ca5a;
+    color: #fff;
+    position: fixed;
+    padding: 12px;
+    top: 15px;
+    right: 15px;
+  }
+
+  #thanks {
+    text-align: center;
+    margin: 30px 0 0;
+  }
+
+  td {
+    vertical-align: top;
+  }
+  </style>
+</head>
+<body>
+  <h2>Navigate Between Search Results Using</h2>
+  <table border="0" cellspacing="0" cellspacing="2">
+    <tr>
+      <td><input type="checkbox" id="navigateWithTabs" /><label for="navigateWithTabs">TAB Key</label></td>
+      <td>(<strong>TAB</strong> = next result; <strong>Shift + TAB</strong> = previous result)</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" id="navigateWithArrows" /><label for="navigateWithArrows">Arrow Keys</label></td>
+      <td>(<strong>Down</strong> = next result; <strong>Up</strong> = previous result)</td>
+     </tr>
+     <tr>
+      <td><input type="checkbox" id="navigateWithJK" /><label for="navigateWithJK">Vim Style</label></td>
+      <td>
+        (<strong>J</strong> = next result; <strong>K</strong> = previous result; <strong>/</strong> = focus the search box)
+        <div>
+          <strong>NOTE</strong>: When selected, we recommend disabling search focus on <em>any</em> key.
+        </div>
+      </td>
+    </tr>
+  </table>
+  <br />
+  <h2>Other Features</h2>
+  <div id="otherFeatures">
+    <div><input type="checkbox" id="styleSelectedSimple"><label for="styleSelectedSimple">Prepend an arrow to the selected search result</label></div>
+    <div><input type="checkbox" id="styleSelectedFancy"><label for="styleSelectedFancy">Add additional styling to the selected search result <em>(experimental)</em></label></div>
+    <div><input type="checkbox" id="activateSearch"><label for="activateSearch">Focus the search box when any key is pressed</label></div>
+  </div>
+  <br /><br />
+  <div id="actionContainer">
+    <button id="save">Save Settings</button>
+    <button id="restore">Restore Defaults</button>
+  </div>
+  <div id="thanks">
+    If you like this extension, please feel free to<br />
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PEJZTNL3BMEAL" target="_blank">
+      <img src="img/donate.gif" border="0" alt="Donate" />
+    </a>
+  </div>
+  <div id="dialog">Your settings have been saved!</div>
+  <script src="js/utils.js"></script>
+  <script src="js/options.js"></script>
+</body>
+</html>
