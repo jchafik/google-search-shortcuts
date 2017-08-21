@@ -51,6 +51,11 @@ var shortcuts = {
     return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
   },
 
+  isInputActive: function() {
+    var activeElement = document.activeElement;
+    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'textarea');
+  },
+
   // -- Highlight the active result
   findContainer: function(link) {
     var container = link.closest('div.gs_r, div[data-hveid], div[data-ved], li, td');

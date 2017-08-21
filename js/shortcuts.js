@@ -26,7 +26,7 @@
     window.addEventListener('keydown', function(e) {
       e = e || window.event;
 
-      var isSearchActive = searchbox === document.activeElement,
+      var isInputActive = shortcuts.isInputActive(),
 
           // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
           isPrintable = (e.keyCode > 47 && e.keyCode < 58)   || // number keys
@@ -35,15 +35,15 @@
                         (e.keyCode > 185 && e.keyCode < 193) || // ;=,-./` (in order)
                         (e.keyCode > 218 && e.keyCode < 223),   // [\]' (in order)
 
-          shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isSearchActive) ||
+          shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isInputActive) ||
                                (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && !e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.J    && !isSearchActive),
+                               (options.navigateWithJK     && e.keyCode == KEYS.J    && !isInputActive),
 
-          shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP   && !isSearchActive) ||
+          shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP   && !isInputActive) ||
                                (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.K    && !isSearchActive),
+                               (options.navigateWithJK     && e.keyCode == KEYS.K    && !isInputActive),
 
-          shouldActivateSearch = !isSearchActive && !shortcuts.hasModifierKey(e) && (
+          shouldActivateSearch = !isInputActive && !shortcuts.hasModifierKey(e) && (
                                     (options.activateSearch === true && isPrintable) ||
                                     (options.activateSearch !== false && e.keyCode === options.activateSearch)
                                  );
@@ -62,10 +62,8 @@
 
     window.addEventListener('keyup', function(e) {
       e = e || window.event;
-
-      var isSearchActive = searchbox === document.activeElement;
-
-      if (!isSearchActive && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
+      
+      if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
         searchbox.value = searchbox.value + " ";
         searchbox.focus();
       }

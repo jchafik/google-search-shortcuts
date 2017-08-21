@@ -1,3 +1,6 @@
+1.1.3
+- Fix issue #1 - do not remove focus from input elements
+
 1.1.2
 - Fixed issue navigating between results when "People also searched for" was displayed
 
