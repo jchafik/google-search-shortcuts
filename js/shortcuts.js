@@ -8,7 +8,7 @@
   }
 
   // Globals
-  var KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191};
+  var KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
 
   // Load options
   shortcuts.loadOptions(function(options) {
@@ -46,7 +46,8 @@
           shouldActivateSearch = !isInputActive && !shortcuts.hasModifierKey(e) && (
                                     (options.activateSearch === true && isPrintable) ||
                                     (options.activateSearch !== false && e.keyCode === options.activateSearch)
-                                 );
+                                 ),
+          shouldActivateSearchAndHighlightText = !isInputActive && options.selectTextInSearchbox && e.keyCode == KEYS.ESC;
 
       if (shouldNavigateNext || shouldNavigateBack) {
         e.preventDefault();
@@ -58,11 +59,16 @@
         searchbox.value = searchbox.value + " ";
         searchbox.focus();
       }
+      else if (shouldActivateSearchAndHighlightText) {
+            window.scrollTo(0,0);
+            searchbox.select();
+            searchbox.focus();
+        }
     });
 
     window.addEventListener('keyup', function(e) {
       e = e || window.event;
-      
+
       if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
         searchbox.value = searchbox.value + " ";
         searchbox.focus();

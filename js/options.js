@@ -17,6 +17,7 @@
     document.getElementById('styleSelectedSimple').checked = extOptions.styleSelectedSimple;
     document.getElementById('styleSelectedFancy').checked = extOptions.styleSelectedFancy;
     document.getElementById('activateSearch').checked = extOptions.activateSearch;
+    document.getElementById('selectTextInSearchbox').checked = extOptions.selectTextInSearchbox;
   }
 
   function saveOptions() {
@@ -26,7 +27,8 @@
     extOptions.styleSelectedSimple = document.getElementById('styleSelectedSimple').checked === true;
     extOptions.styleSelectedFancy = document.getElementById('styleSelectedFancy').checked === true;
     extOptions.activateSearch = document.getElementById('activateSearch').checked === true;
-    persistOptions();    
+    extOptions.selectTextInSearchbox = document.getElementById('selectTextInSearchbox').checked === true;
+    persistOptions();
   }
 
   function restoreDefaults() {
