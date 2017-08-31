@@ -48,7 +48,7 @@
                                     (options.activateSearch === true && isPrintable) ||
                                     (options.activateSearch !== false && e.keyCode === options.activateSearch)
                                  ),
-          shouldActivateSearchAndHighlightText = !isInputActive && options.selectTextInSearchbox && e.keyCode == KEYS.ESC;
+          shouldActivateSearchAndHighlightText = options.selectTextInSearchbox && !isInputActive && !shortcuts.hasModifierKey(e) && e.keyCode == KEYS.ESC;
 
       if (shouldNavigateNext || shouldNavigateBack) {
         e.preventDefault();
