@@ -18,7 +18,10 @@ var shortcuts = {
     navigateWithArrows: true,
 
     // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
-    navigateWithJK: false
+    navigateWithJK: false,
+
+    // Esc = select all text in searchbox
+    selectTextInSearchbox: false
   },
 
   saveOptions: function(options, callback) {
