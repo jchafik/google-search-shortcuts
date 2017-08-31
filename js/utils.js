@@ -21,7 +21,7 @@ var shortcuts = {
     navigateWithJK: false,
 
     // Esc = select all text in searchbox
-    selectTextInSearchbox: true
+    selectTextInSearchbox: false
   },
 
   saveOptions: function(options, callback) {
