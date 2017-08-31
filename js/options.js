@@ -26,7 +26,7 @@
     extOptions.styleSelectedSimple = document.getElementById('styleSelectedSimple').checked === true;
     extOptions.styleSelectedFancy = document.getElementById('styleSelectedFancy').checked === true;
     extOptions.activateSearch = document.getElementById('activateSearch').checked === true;
-    persistOptions();    
+    persistOptions();
   }
 
   function restoreDefaults() {

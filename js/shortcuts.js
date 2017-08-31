@@ -12,6 +12,7 @@
 
   // Load options
   shortcuts.loadOptions(function(options) {
+    
     // Styling is present
     if (options.styleSelectedSimple || options.styleSelectedFancy) {
       document.body.className += " useHighlight";
@@ -62,7 +63,7 @@
 
     window.addEventListener('keyup', function(e) {
       e = e || window.event;
-      
+
       if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
         searchbox.value = searchbox.value + " ";
         searchbox.focus();
