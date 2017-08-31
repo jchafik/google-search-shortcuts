@@ -12,6 +12,7 @@
 
   // Load options
   shortcuts.loadOptions(function(options) {
+    
     // Styling is present
     if (options.styleSelectedSimple || options.styleSelectedFancy) {
       document.body.className += " useHighlight";

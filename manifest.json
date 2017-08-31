@@ -10,7 +10,7 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "author": "Jacob Chafik <jacob@achafik.com>",
+  "author": "Jacob Chafik <jacobthedeveloper@gmail.com>",
   "options_ui": {
       "page": "options.html",
       "chrome_style": true
