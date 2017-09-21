@@ -56,7 +56,7 @@ var shortcuts = {
 
   isInputActive: function() {
     var activeElement = document.activeElement;
-    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'textarea');
+    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'number' || activeElement.type == 'textarea' || activeElement.nodeName == 'INPUT');
   },
 
   // -- Highlight the active result
