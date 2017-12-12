@@ -9,6 +9,9 @@ var shortcuts = {
     // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
     activateSearch: true,
 
+    // Automatically select the first search reult.
+    autoselectFirst: false,
+
     // Navigate between results using
 
     // Next = Tab; Previous = Shift + TAB
@@ -65,6 +68,7 @@ var shortcuts = {
     return container != null ? container : link;
   },
 
+  // Add custom styling for the selected result (does not apply to footer navigation links)
   addResultHighlight: function(target) {
     var container = this.findContainer(target);
 
@@ -111,6 +115,14 @@ var shortcuts = {
 
     var target = results[focusIndex];
     target.focus();
+
+    // Scroll the entire result container into view if it's not already.
+    var container = this.findContainer(target);
+    var rect = container.getBoundingClientRect();
+    var offsetY = rect.bottom - window.innerHeight;
+    if (offsetY > 0) {
+      window.scrollBy(0, offsetY);
+    }
 
     if (useFancyHighlight) {
       this.addResultHighlight(target);

@@ -75,6 +75,12 @@
         searchbox.focus();
       }
     });
+
+    // Auto select the first search result
+    if (options.autoselectFirst === true) {
+      shortcuts.focusResult(1);
+    }
+
   });
 
 })();

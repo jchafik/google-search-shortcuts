@@ -1,3 +1,10 @@
+1.1.5
+- Scroll to the selected search result if it's not fully visible
+- Added an option to automatically select the first search result
+
+1.1.4
+- Fix issue #4 - do not remove focus from *any* input elements (type=number, etc.).
+
 1.1.3
 - Fix issue #1 - do not remove focus from input elements
 
