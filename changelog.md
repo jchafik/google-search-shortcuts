@@ -1,3 +1,6 @@
+1.1.6
+- Prevent hotkeys from triggering when modifier is active
+
 1.1.5
 - Scroll to the selected search result if it's not fully visible
 - Added an option to automatically select the first search result
