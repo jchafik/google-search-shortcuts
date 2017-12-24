@@ -27,7 +27,7 @@
     window.addEventListener('keydown', function(e) {
       e = e || window.event;
 
-      var isInputActive = shortcuts.isInputActive(),
+      var isInputOrModifierActive = shortcuts.isInputActive() || shortcuts.hasModifierKey(e),
 
           // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
           isPrintable = (e.keyCode > 47 && e.keyCode < 58)   || // number keys
@@ -36,19 +36,19 @@
                         (e.keyCode > 185 && e.keyCode < 193) || // ;=,-./` (in order)
                         (e.keyCode > 218 && e.keyCode < 223),   // [\]' (in order)
 
-          shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isInputActive) ||
+          shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isInputOrModifierActive) ||
                                (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && !e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.J    && !isInputActive),
+                               (options.navigateWithJK     && e.keyCode == KEYS.J    && !isInputOrModifierActive),
 
-          shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP   && !isInputActive) ||
+          shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP   && !isInputOrModifierActive) ||
                                (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.K    && !isInputActive),
+                               (options.navigateWithJK     && e.keyCode == KEYS.K    && !isInputOrModifierActive),
 
-          shouldActivateSearch = !isInputActive && !shortcuts.hasModifierKey(e) && (
+          shouldActivateSearch = !isInputOrModifierActive && (
                                     (options.activateSearch === true && isPrintable) ||
                                     (options.activateSearch !== false && e.keyCode === options.activateSearch)
                                  ),
-          shouldActivateSearchAndHighlightText = options.selectTextInSearchbox && !isInputActive && !shortcuts.hasModifierKey(e) && e.keyCode == KEYS.ESC;
+          shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && e.keyCode == KEYS.ESC;
 
       if (shouldNavigateNext || shouldNavigateBack) {
         e.preventDefault();
