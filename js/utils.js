@@ -57,9 +57,12 @@ var shortcuts = {
     return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
   },
 
+  /**
+   * Determine if an input element is focused. id=cwtltblr is a special case for the calculator.
+   */
   isInputActive: function() {
     var activeElement = document.activeElement;
-    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'number' || activeElement.type == 'textarea' || activeElement.nodeName == 'INPUT');
+    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'number' || activeElement.type == 'textarea' || activeElement.nodeName == 'INPUT' || activeElement.id == 'cwtltblr');
   },
 
   // -- Highlight the active result
