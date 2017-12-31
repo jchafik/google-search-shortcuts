@@ -64,7 +64,7 @@ var shortcuts = {
 
   // -- Highlight the active result
   findContainer: function(link) {
-    var container = link.closest('div.gs_r, div[data-hveid], div[data-ved], li, td');
+    var container = link.closest('div.gs_r, div.g, li, td');
     return container != null ? container : link;
   },
 

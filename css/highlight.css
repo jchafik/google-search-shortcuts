@@ -3,8 +3,7 @@
   transform: translate(-3px, 0) !important;
 }
 
-div.activeSearchResult[data-ved],
-div.activeSearchResult[data-hveid],
+div.g.activeSearchResult,
 li.ads-ad li.activeSearchResult,
 div.gs_r.activeSearchResult {
   padding-left: 8px;
