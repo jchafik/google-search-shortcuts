@@ -19,6 +19,7 @@ body.useSimpleHighlight h3 a:focus:before {
   content: '\25BA \00A0';
 }
 
-body.useHighlight h3 a:focus {
+body.useHighlight h3 a:focus,
+body.useHighlight #search .r > a:focus {
   outline: 0;
 }

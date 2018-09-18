@@ -1,3 +1,6 @@
+1.1.7
+- Updated selectors to accommodate Google search updates
+
 1.1.6
 - Added support for news, books, and video search results.
 - Prevent hotkeys from triggering when modifier is active
