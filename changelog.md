@@ -1,3 +1,6 @@
+1.1.8
+- Updated simple selector styling
+
 1.1.7
 - Updated selectors to accommodate Google search updates
 
