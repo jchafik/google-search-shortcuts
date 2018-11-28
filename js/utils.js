@@ -40,7 +40,7 @@ var shortcuts = {
   },
 
   getVisibleResults: function() {
-    var allResults = document.querySelectorAll('h3 a, #search .r > a, #foot a'),
+    var allResults = document.querySelectorAll('h3 a, #search .r > a:first-of-type, #foot a'),
         visibleResults = [];
 
     for (var i = 0; i < allResults.length; i++) {
