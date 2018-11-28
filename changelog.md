@@ -1,4 +1,5 @@
 1.1.9
+- Don't wrap when arrow is prepended to search results
 - Bug Fix: Display marker when first result is automatically selected
 - Fix issue #8 - Only activate the first link for each result (don't focus "Translate" or other links)
 

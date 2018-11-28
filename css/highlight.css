@@ -15,6 +15,11 @@ td.activeSearchResult {
   padding-right: 0 !important;
 }
 
+body.useSimpleHighlight h3 a:focus,
+body.useSimpleHighlight #search .r > a:focus {
+  white-space: nowrap;
+}
+
 body.useSimpleHighlight h3 a:focus:before,
 body.useSimpleHighlight #search .r > a:focus:before {
   content: '\25BA \00A0';
