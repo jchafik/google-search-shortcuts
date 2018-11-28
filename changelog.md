@@ -1,3 +1,7 @@
+1.1.9
+- Bug Fix: Display marker when first result is automatically selected
+- Fix issue #8 - Only activate the first link for each result (don't focus "Translate" or other links)
+
 1.1.8
 - Updated simple selector styling
 

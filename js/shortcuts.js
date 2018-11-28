@@ -61,7 +61,7 @@
         searchbox.focus();
       }
       else if (shouldActivateSearchAndHighlightText) {
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
             searchbox.select();
             searchbox.focus();
         }
@@ -78,7 +78,7 @@
 
     // Auto select the first search result
     if (options.autoselectFirst === true) {
-      shortcuts.focusResult(1);
+      shortcuts.focusResult(1, options.styleSelectedFancy);
     }
 
   });
