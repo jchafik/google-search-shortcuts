@@ -1,3 +1,6 @@
+1.1.10
+- Added option to include a space at the end of search query when focusing the search box
+
 1.1.9
 - Don't wrap when arrow is prepended to search results
 - Bug Fix: Display marker when first result is automatically selected

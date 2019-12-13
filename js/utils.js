@@ -24,7 +24,10 @@ var shortcuts = {
     navigateWithJK: false,
 
     // Esc = select all text in searchbox
-    selectTextInSearchbox: false
+    selectTextInSearchbox: false,
+
+    // Add space on focus
+    addSpaceOnFocus: true
   },
 
   saveOptions: function(options, callback) {

@@ -19,6 +19,7 @@
     document.getElementById('activateSearch').checked = extOptions.activateSearch;
     document.getElementById('autoselectFirst').checked = extOptions.autoselectFirst;
     document.getElementById('selectTextInSearchbox').checked = extOptions.selectTextInSearchbox;
+    document.getElementById('addSpaceOnFocus').checked = extOptions.addSpaceOnFocus;
   }
 
   function saveOptions() {
@@ -30,6 +31,7 @@
     extOptions.activateSearch = document.getElementById('activateSearch').checked === true;
     extOptions.autoselectFirst = document.getElementById('autoselectFirst').checked === true;
     extOptions.selectTextInSearchbox = document.getElementById('selectTextInSearchbox').checked === true;
+    extOptions.addSpaceOnFocus = document.getElementById('addSpaceOnFocus').checked === true;
     persistOptions();
   }
 

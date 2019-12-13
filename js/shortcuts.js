@@ -12,7 +12,7 @@
 
   // Load options
   shortcuts.loadOptions(function(options) {
-    
+
     // Styling is present
     if (options.styleSelectedSimple || options.styleSelectedFancy) {
       document.body.className += " useHighlight";
@@ -57,7 +57,10 @@
       }
       else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
-        searchbox.value = searchbox.value + " ";
+        searchbox.selectionStart = searchbox.selectionEnd = searchbox.value.length;
+        if (options.addSpaceOnFocus) {
+          searchbox.value += " ";
+        }
         searchbox.focus();
       }
       else if (shouldActivateSearchAndHighlightText) {
@@ -71,7 +74,10 @@
       e = e || window.event;
 
       if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
-        searchbox.value = searchbox.value + " ";
+        searchbox.selectionStart = searchbox.selectionEnd = searchbox.value.length;
+        if (options.addSpaceOnFocus) {
+          searchbox.value += " ";
+        }
         searchbox.focus();
       }
     });
