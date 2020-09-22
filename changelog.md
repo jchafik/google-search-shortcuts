@@ -1,3 +1,6 @@
+1.1.10
+- PR #15 - Updated selector to handle new search variation
+
 1.1.9
 - Don't wrap when arrow is prepended to search results
 - Bug Fix: Display marker when first result is automatically selected
