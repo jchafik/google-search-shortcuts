@@ -1,3 +1,6 @@
+1.1.11
+- Fix for issue #16. Updated Google selectors
+
 1.1.10
 - PR #15 - Updated selector to handle new search variation
 
