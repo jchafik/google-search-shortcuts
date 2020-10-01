@@ -92,7 +92,7 @@ var shortcuts = {
 
   focusResult: function(offset, useFancyHighlight) {
     var results = this.getVisibleResults(),
-        focused = document.querySelector('h3 a:focus, #search .r > a:focus, #foot a:focus'),
+        focused = document.querySelector('h3 a:focus, #search .rc > * > a:focus, #foot a:focus'),
         focusIndex = null;
 
     // No result is currently focused. Focus the first one
