@@ -16,16 +16,19 @@ td.activeSearchResult {
 }
 
 body.useSimpleHighlight h3 a:focus,
-body.useSimpleHighlight #search .rc > * > a:focus {
+body.useSimpleHighlight #search .rc > * > a:focus,
+body.useSimpleHighlight #rso .rc > * > a:focus {
   white-space: nowrap;
 }
 
 body.useSimpleHighlight h3 a:focus:before,
-body.useSimpleHighlight #search .rc > * > a:focus:before {
+body.useSimpleHighlight #search .rc > * > a:focus:before,
+body.useSimpleHighlight #rso .rc > * > a:focus:before {
   content: '\25BA \00A0';
 }
 
 body.useHighlight h3 a:focus,
-body.useHighlight #search .rc > * > a:focus {
+body.useHighlight #search .rc > * > a:focus,
+body.useHighlight #rso .rc > * > a:focus {
   outline: 0;
 }
