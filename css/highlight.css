@@ -1,37 +1,17 @@
-.activeSearchResult {
+body.useFancyHighlight .activeSearchResultContainer {
   border-left: 3px solid #2586fc !important;
-  transform: translate(-3px, 0) !important;
+  padding-left: 8px !important;
+  margin-left: -11px !important;
 }
 
-div.g.activeSearchResult,
-li.ads-ad li.activeSearchResult,
-div.gs_r.activeSearchResult {
-  padding-left: 8px;
-  margin-left: -11px;
-  transform: none !important;
-}
-
-td.activeSearchResult {
-  padding-right: 0 !important;
-}
-
-body.useSimpleHighlight h3 a:focus,
-body.useSimpleHighlight #search .rc > * > a:focus,
-body.useSimpleHighlight #rso .rc > * > a:focus,
-body.useSimpleHighlight #search .g a:focus {
+body.useSimpleHighlight .activeSearchResultText {
   white-space: nowrap;
 }
 
-body.useSimpleHighlight h3 a:focus:before,
-body.useSimpleHighlight #search .rc > * > a:focus:before,
-body.useSimpleHighlight #rso .rc > * > a:focus:before,
-body.useSimpleHighlight #search .g a:focus:before {
+body.useSimpleHighlight .activeSearchResultText:before {
   content: '\25BA \00A0';
 }
 
-body.useHighlight h3 a:focus,
-body.useHighlight #search .rc > * > a:focus,
-body.useHighlight #rso .rc > * > a:focus,
-body.useHighlight #search .g a:focus {
+body.useHighlight .activeSearchResult {
   outline: 0;
 }
