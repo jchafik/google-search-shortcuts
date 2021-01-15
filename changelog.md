@@ -1,3 +1,6 @@
+1.1.13
+- Fix for issue #23. Updated Google selectors
+
 1.1.12
 - Fix for issue #19. Updated Google selectors
 

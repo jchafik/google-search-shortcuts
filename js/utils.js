@@ -40,7 +40,7 @@ var shortcuts = {
   },
 
   getVisibleResults: function() {
-    var allResults = document.querySelectorAll('h3 a, #search .rc > * > a:first-of-type, #rso .rc > * > a:first-of-type, #foot a'),
+    var allResults = document.querySelectorAll('h3 a, #search .rc > * > a:first-of-type, #rso .rc > * > a:first-of-type, #foot a, #search .g div[data-ved] > * > a[data-ved]:first-of-type'),
         visibleResults = [];
 
     for (var i = 0; i < allResults.length; i++) {
@@ -92,7 +92,7 @@ var shortcuts = {
 
   focusResult: function(offset, useFancyHighlight) {
     var results = this.getVisibleResults(),
-        focused = document.querySelector('h3 a:focus, #search .rc > * > a:focus, #rso .rc > * > a:focus, #foot a:focus'),
+        focused = document.querySelector('h3 a:focus, #search .rc > * > a:focus, #rso .rc > * > a:focus, #foot a:focus, #search .g div[data-ved] > * > a[data-ved]:focus'),
         focusIndex = null;
 
     // No result is currently focused. Focus the first one
