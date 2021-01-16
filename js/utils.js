@@ -44,13 +44,13 @@ var shortcuts = {
   getVisibleResults: function() {
     return [
       // Main items
-      ...Array.from(document.querySelectorAll('a h3')).map(element => ({
+      ...Array.from(document.querySelectorAll('#search .g div[data-ved] > * > a[data-ved]:first-of-type')).map(element => ({
         container: element.closest('.g'),
         focus: element.closest('a'),
         text: element,
       })),
       // Suggested searches in footer
-      ...Array.from(document.querySelectorAll('.nVcaUb > a')).map(element => ({
+      ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
         container: element,
         focus: element,
         text: element,
