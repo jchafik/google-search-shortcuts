@@ -57,7 +57,7 @@
       if (shouldNavigateNext || shouldNavigateBack) {
         e.preventDefault();
         e.stopPropagation();
-        shortcuts.focusResult(shouldNavigateNext ? 1 : -1, options.styleSelectedFancy);
+        shortcuts.focusResult(shouldNavigateNext ? 1 : -1);
       }
       else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
@@ -82,7 +82,7 @@
 
     // Auto select the first search result
     if (options.autoselectFirst === true) {
-      shortcuts.focusResult(0, options.styleSelectedFancy);
+      shortcuts.focusResult(0);
     }
 
   });
