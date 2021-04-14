@@ -1,7 +1,11 @@
-body.useFancyHighlight .activeSearchResultContainer {
+body.useFancyHighlight #res .activeSearchResultContainer {
   border-left: 3px solid #2586fc !important;
   padding-left: 8px !important;
   margin-left: -11px !important;
+}
+
+body.useFancyHighlight #botstuff .activeSearchResultContainer img {
+  border-top: 3px solid #2586fc !important;
 }
 
 body.useSimpleHighlight .activeSearchResultText {
