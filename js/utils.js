@@ -44,7 +44,7 @@ var shortcuts = {
   getVisibleResults: function() {
     return [
       // Main items
-      ...Array.from(document.querySelectorAll('#search .g div[data-ved] > * > a[data-ved]:first-of-type')).map(element => ({
+      ...Array.from(document.querySelectorAll('#search .g:not(.kno-kp) div[data-ved] > * > * > a[data-ved]:first-of-type')).map(element => ({
         container: element.closest('.g'),
         focus: element.closest('a'),
         text: element,
