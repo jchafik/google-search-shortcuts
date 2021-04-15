@@ -27,6 +27,8 @@ var shortcuts = {
     selectTextInSearchbox: false
   },
 
+  focusIndex: 0,
+
   saveOptions: function(options, callback) {
     chrome.storage.sync.set(options, callback);
   },
@@ -40,17 +42,20 @@ var shortcuts = {
   },
 
   getVisibleResults: function() {
-    var allResults = document.querySelectorAll('h3 a, #search .rc > * > a:first-of-type, #rso .rc > * > a:first-of-type, #foot a, #search .g div[data-ved] > * > a[data-ved]:first-of-type'),
-        visibleResults = [];
-
-    for (var i = 0; i < allResults.length; i++) {
-      var element = allResults[i];
-      if (this.isElementVisible(element)) {
-        visibleResults.push(element);
-      }
-    }
-
-    return visibleResults;
+    return [
+      // Main items
+      ...Array.from(document.querySelectorAll('#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type')).map(element => ({
+        container: element.closest('.g'),
+        focus: element.closest('a'),
+        text: element,
+      })),
+      // Suggested searches in footer
+      ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
+        container: element,
+        focus: element,
+        text: element,
+      })),
+    ].filter(info => this.isElementVisible(info.focus));
   },
 
   hasModifierKey: function(e) {
@@ -65,70 +70,38 @@ var shortcuts = {
     return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'number' || activeElement.type == 'textarea' || activeElement.nodeName == 'INPUT' || activeElement.id == 'cwtltblr');
   },
 
-  // -- Highlight the active result
-  findContainer: function(link) {
-    var container = link.closest('div.gs_r, div.g, li, td');
-    return container != null ? container : link;
-  },
+  focusResult: function(offset) {
+    var results = this.getVisibleResults();
 
-  // Add custom styling for the selected result (does not apply to footer navigation links)
-  addResultHighlight: function(target) {
-    var container = this.findContainer(target);
+    this.focusIndex = Math.max(this.focusIndex + offset, 0);
 
-    // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
-    if (container.className.indexOf('activeSearchResult') >= 0 || target.closest('#foot') != null) {
-      return;
-    }
-
-    container.className += ' activeSearchResult';
-    target.addEventListener('blur', this.removeResultHighlight);
-  },
-
-  removeResultHighlight: function() {
-    var container = shortcuts.findContainer(this);
-    container.className = container.className.replace(" activeSearchResult", "");
-    this.removeEventListener('blur', shortcuts.removeResultHighlight);
-  },
-
-  focusResult: function(offset, useFancyHighlight) {
-    var results = this.getVisibleResults(),
-        focused = document.querySelector('h3 a:focus, #search .rc > * > a:focus, #rso .rc > * > a:focus, #foot a:focus, #search .g div[data-ved] > * > a[data-ved]:focus'),
-        focusIndex = null;
-
-    // No result is currently focused. Focus the first one
-    if (focused == null) {
-      focusIndex = 0;
-    }
-    else {
-      for (var i = 0; i < results.length; i++) {
-        var result = results[i];
-        if (result === focused) {
-          focusIndex = i + offset;
-          if (focusIndex < 0) focusIndex = 0;
-          if (focusIndex >= results.length) focusIndex = results.length - 1;
-          break;
-        }
-      }
-    }
-
-    // Could not determine element to focus. Focus on first result.
-    if (focusIndex === null) {
-      return; // focusIndex = 0;
-    }
-
-    var target = results[focusIndex];
-    target.focus();
+    var target = results[this.focusIndex];
 
     // Scroll the entire result container into view if it's not already.
-    var container = this.findContainer(target);
-    var rect = container.getBoundingClientRect();
+    var rect = target.container.getBoundingClientRect();
     var offsetY = rect.bottom - window.innerHeight;
     if (offsetY > 0) {
       window.scrollBy(0, offsetY);
     }
 
-    if (useFancyHighlight) {
-      this.addResultHighlight(target);
+    if (target.container.classList.contains('activeSearchResultContainer')) {
+      // Already focused, exit
+      return;
     }
+
+    target.focus.focus();
+
+    target.container.classList.add('activeSearchResultContainer');
+    target.focus.classList.add('activeSearchResult');
+    target.text.classList.add('activeSearchResultText');
+
+    const blurHandler = () => {
+      target.container.classList.remove('activeSearchResultContainer');
+      target.focus.classList.remove('activeSearchResult');
+      target.focus.removeEventListener('blur', blurHandler);
+      target.text.classList.remove('activeSearchResultText');
+    };
+
+    target.focus.addEventListener('blur', blurHandler);
   }
 };

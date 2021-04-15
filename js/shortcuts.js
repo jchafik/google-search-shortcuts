@@ -12,14 +12,18 @@
 
   // Load options
   shortcuts.loadOptions(function(options) {
-    
+
     // Styling is present
     if (options.styleSelectedSimple || options.styleSelectedFancy) {
-      document.body.className += " useHighlight";
+      document.body.classList.add('useHighlight');
     }
     // Add simple highlight
     if (options.styleSelectedSimple) {
-      document.body.className += " useSimpleHighlight";
+      document.body.classList.add('useSimpleHighlight');
+    }
+    // Add fancy highlight
+    if (options.styleSelectedFancy) {
+      document.body.classList.add('useFancyHighlight');
     }
 
     var searchbox = document.querySelector('form[role="search"] input[type="text"]:nth-of-type(1)');
@@ -53,7 +57,7 @@
       if (shouldNavigateNext || shouldNavigateBack) {
         e.preventDefault();
         e.stopPropagation();
-        shortcuts.focusResult(shouldNavigateNext ? 1 : -1, options.styleSelectedFancy);
+        shortcuts.focusResult(shouldNavigateNext ? 1 : -1);
       }
       else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
@@ -78,7 +82,7 @@
 
     // Auto select the first search result
     if (options.autoselectFirst === true) {
-      shortcuts.focusResult(1, options.styleSelectedFancy);
+      shortcuts.focusResult(0);
     }
 
   });
