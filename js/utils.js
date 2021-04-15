@@ -27,7 +27,15 @@ var shortcuts = {
     selectTextInSearchbox: false
   },
 
-  focusIndex: 0,
+  focusIndex: -1,
+
+  inputElementIds: ['cwtltblr' /* Calculator */],
+  inputElementTypes: ['text', 'number', 'textarea'],
+
+  visibleResultsQuerySelector: 'h3 a, #search .rc > * > a:first-of-type, #rso .rc > * > a:first-of-type, #search .g div[data-ved] > * > * > a[data-ved]:first-of-type',
+  resultContainerQuerySelector: 'div.gs_r, div.g, li, td',
+  footerContainerQuerySelector: 'div[role="navigation"] table',
+  suggestedSearchesQuerySelector: 'div[role="navigation"] table a, #botstuff a',
 
   saveOptions: function(options, callback) {
     chrome.storage.sync.set(options, callback);
@@ -44,18 +52,16 @@ var shortcuts = {
   getVisibleResults: function() {
     return [
       // Main items
-      ...Array.from(document.querySelectorAll('#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type')).map(element => ({
-        container: element.closest('.g'),
-        focus: element.closest('a'),
-        text: element,
+      ...Array.from(document.querySelectorAll(this.visibleResultsQuerySelector)).map(element => ({
+        container: this.findContainer(element),
+        focusElement: element
       })),
-      // Suggested searches in footer
-      ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
+      // Suggested searches in footer and footer links
+      ...Array.from(document.querySelectorAll(this.suggestedSearchesQuerySelector)).map(element => ({
         container: element,
-        focus: element,
-        text: element,
-      })),
-    ].filter(info => this.isElementVisible(info.focus));
+        focusElement: element
+      }))
+    ].filter(target => this.isElementVisible(target.focusElement));
   },
 
   hasModifierKey: function(e) {
@@ -63,17 +69,50 @@ var shortcuts = {
   },
 
   /**
-   * Determine if an input element is focused. id=cwtltblr is a special case for the calculator.
+   * Determine if an input element is focused
    */
   isInputActive: function() {
     var activeElement = document.activeElement;
-    return activeElement != null && (activeElement.type == 'text' || activeElement.type == 'number' || activeElement.type == 'textarea' || activeElement.nodeName == 'INPUT' || activeElement.id == 'cwtltblr');
+    return activeElement != null && (activeElement.nodeName == 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
+  },
+
+  // -- Highlight the active result
+  findContainer: function(link) {
+    var container = link.closest(this.resultContainerQuerySelector);
+    return container != null ? container : link;
+  },
+
+  // Add custom styling for the selected result (does not apply to footer navigation links)
+  addResultHighlight: function(target) {
+    // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
+    if (target.container.classList.contains('activeSearchResultContainer') || target.focusElement.closest(this.footerContainerQuerySelector) != null) {
+      return;
+    }
+
+    target.container.classList.add('activeSearchResultContainer');
+    target.focusElement.classList.add('activeSearchResult');
+
+    const removeResultHighlight = () => {
+      target.container.classList.remove('activeSearchResultContainer');
+      target.focusElement.classList.remove('activeSearchResult');
+      target.focusElement.removeEventListener('blur', removeResultHighlight);
+    };
+
+    target.focusElement.addEventListener('blur', removeResultHighlight);
   },
 
   focusResult: function(offset) {
     var results = this.getVisibleResults();
 
-    this.focusIndex = Math.max(this.focusIndex + offset, 0);
+    if (results.length <= 0) {
+      console.warn('No results found. Extension may need to be updated.');
+      return;
+    }
+
+    // Shift focusIndex and perform boundary checks
+    this.focusIndex += offset;
+    this.focusIndex = Math.min(this.focusIndex, results.length - 1);
+    this.focusIndex = Math.max(this.focusIndex, 0);
 
     var target = results[this.focusIndex];
 
@@ -84,24 +123,7 @@ var shortcuts = {
       window.scrollBy(0, offsetY);
     }
 
-    if (target.container.classList.contains('activeSearchResultContainer')) {
-      // Already focused, exit
-      return;
-    }
-
-    target.focus.focus();
-
-    target.container.classList.add('activeSearchResultContainer');
-    target.focus.classList.add('activeSearchResult');
-    target.text.classList.add('activeSearchResultText');
-
-    const blurHandler = () => {
-      target.container.classList.remove('activeSearchResultContainer');
-      target.focus.classList.remove('activeSearchResult');
-      target.focus.removeEventListener('blur', blurHandler);
-      target.text.classList.remove('activeSearchResultText');
-    };
-
-    target.focus.addEventListener('blur', blurHandler);
+    target.focusElement.focus();
+    this.addResultHighlight(target);
   }
 };

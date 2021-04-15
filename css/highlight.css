@@ -1,21 +1,29 @@
-body.useFancyHighlight #res .activeSearchResultContainer {
-  border-left: 3px solid #2586fc !important;
-  padding-left: 8px !important;
-  margin-left: -11px !important;
+body.useFancyHighlight .activeSearchResultContainer a {
+  outline: 0;
 }
 
-body.useFancyHighlight #botstuff .activeSearchResultContainer img {
+body.useFancyHighlight .activeSearchResultContainer {
+  border-left: 3px solid #2586fc !important;
+  transform: translate(-3px, 0) !important;
+}
+
+body.useFancyHighlight div.g.activeSearchResultContainer,
+body.useFancyHighlight li.ads-ad li.activeSearchResultContainer,
+body.useFancyHighlight div.gs_r.activeSearchResultContainer {
+  padding-left: 8px;
+  margin-left: -11px;
+  transform: none !important;
+}
+
+body.useFancyHighlight .activeSearchResultContainer img {
   border-top: 3px solid #2586fc !important;
 }
 
-body.useSimpleHighlight .activeSearchResultText {
-  white-space: nowrap;
-}
-
-body.useSimpleHighlight .activeSearchResultText:before {
+body.useSimpleHighlight .activeSearchResult:before {
   content: '\25BA \00A0';
 }
 
-body.useHighlight .activeSearchResult {
+body.useSimpleHighlight .activeSearchResult {
+  white-space: nowrap;
   outline: 0;
 }
