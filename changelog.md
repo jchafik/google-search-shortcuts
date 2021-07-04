@@ -1,3 +1,16 @@
+1.1.15
+- Updated Google selectors.
+
+1.1.14
+- Fixed bug where first result would be skipped if auto focus first was not selected
+- Fixed array index out of bounds exception after last result
+- Added back navigation for footer links. Don't highlight footer links
+- Pulled addResultHighlight, findContainer back into their own methods
+- Removed focus/text property separation. Selector guarantees they'll always be the same
+- Style updates
+- Added safeguard to detect outdated selectors
+- Pulled all selectors out into their own properties
+
 1.1.13
 - Fix for issue #23. Updated Google selectors
 

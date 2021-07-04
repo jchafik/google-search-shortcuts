@@ -2,6 +2,10 @@ body.useFancyHighlight .activeSearchResultContainer a {
   outline: 0;
 }
 
+body.useFancyHighlight .activeSearchResultContainer > div {
+    position: relative;
+}
+
 body.useFancyHighlight .activeSearchResultContainer {
   border-left: 3px solid #2586fc !important;
   transform: translate(-3px, 0) !important;
@@ -26,4 +30,8 @@ body.useSimpleHighlight .activeSearchResult:before {
 body.useSimpleHighlight .activeSearchResult {
   white-space: nowrap;
   outline: 0;
+}
+
+div[role="navigation"] table a:focus {
+  text-decoration: underline;
 }

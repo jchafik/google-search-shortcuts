@@ -29,13 +29,13 @@ var shortcuts = {
 
   focusIndex: -1,
 
-  inputElementIds: ['cwtltblr' /* Calculator */],
+  inputElementIds: ['cwtltblr' /* Google Calculator Widget */],
   inputElementTypes: ['text', 'number', 'textarea'],
 
-  visibleResultsQuerySelector: 'h3 a, #search .rc > * > a:first-of-type, #rso .rc > * > a:first-of-type, #search .g div[data-ved] > * > * > a[data-ved]:first-of-type',
+  visibleResultsQuerySelector: 'h3 a, #search a[data-ved][ping]',
   resultContainerQuerySelector: 'div.gs_r, div.g, li, td',
-  footerContainerQuerySelector: 'div[role="navigation"] table',
-  suggestedSearchesQuerySelector: 'div[role="navigation"] table a, #botstuff a',
+  navigationContainerQuerySelector: 'div[role="navigation"] table',
+  navigationLinksAndSuggestedSearchesQuerySelector: 'div[role="navigation"] table a, #botstuff a',
 
   saveOptions: function(options, callback) {
     chrome.storage.sync.set(options, callback);
@@ -50,18 +50,19 @@ var shortcuts = {
   },
 
   getVisibleResults: function() {
+    var containers = [];
     return [
       // Main items
       ...Array.from(document.querySelectorAll(this.visibleResultsQuerySelector)).map(element => ({
-        container: this.findContainer(element),
+        container: this.findContainer(element, containers),
         focusElement: element
       })),
       // Suggested searches in footer and footer links
-      ...Array.from(document.querySelectorAll(this.suggestedSearchesQuerySelector)).map(element => ({
+      ...Array.from(document.querySelectorAll(this.navigationLinksAndSuggestedSearchesQuerySelector)).map(element => ({
         container: element,
         focusElement: element
       }))
-    ].filter(target => this.isElementVisible(target.focusElement));
+    ].filter(target => target.container !== null && this.isElementVisible(target.focusElement));
   },
 
   hasModifierKey: function(e) {
@@ -77,15 +78,23 @@ var shortcuts = {
   },
 
   // -- Highlight the active result
-  findContainer: function(link) {
+  // Results without valid containers will be removed.
+  findContainer: function(link, containers) {
     var container = link.closest(this.resultContainerQuerySelector);
-    return container != null ? container : link;
+
+    // Only return valid, unused containers
+    if (container != null && containers.indexOf(container) < 0) {
+      containers.push(container);
+      return container;
+    }
+
+    return null;
   },
 
   // Add custom styling for the selected result (does not apply to footer navigation links)
   addResultHighlight: function(target) {
     // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
-    if (target.container.classList.contains('activeSearchResultContainer') || target.focusElement.closest(this.footerContainerQuerySelector) != null) {
+    if (target.container.classList.contains('activeSearchResultContainer') || target.focusElement.closest(this.navigationContainerQuerySelector) != null) {
       return;
     }
 
