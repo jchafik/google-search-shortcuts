@@ -11,6 +11,7 @@
     "128": "img/icon128.png"
   },
   "author": "Jacob Chafik <jacobthedeveloper@gmail.com>",
+  "homepage_url": "https://github.com/jchafik/google-search-shortcuts",
   "options_ui": {
       "page": "options.html",
       "chrome_style": true
