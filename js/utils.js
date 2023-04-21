@@ -1,15 +1,15 @@
 // Globals
-var shortcuts = {
+const shortcuts = {
   defaultOptions: {
     // Style selected search result
-    styleSelectedSimple: true,
+    styleSelectedSimple: false,
 
-    styleSelectedFancy: false,
+    styleSelectedFancy: true,
 
     // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
     activateSearch: true,
 
-    // Automatically select the first search reult.
+    // Automatically select the first search result.
     autoselectFirst: false,
 
     // Navigate between results using
@@ -23,7 +23,7 @@ var shortcuts = {
     // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
     navigateWithJK: false,
 
-    // Esc = select all text in searchbox
+    // Esc = select all text in search box
     selectTextInSearchbox: false
   },
 
@@ -46,11 +46,11 @@ var shortcuts = {
   },
 
   isElementVisible: function(element) {
-    return element && (element.offsetWidth > 0 || element.offsetHeight > 0) && window.getComputedStyle(element, null).getPropertyValue('visibility') != 'hidden';
+    return element && (element.offsetWidth > 0 || element.offsetHeight > 0) && window.getComputedStyle(element, null).getPropertyValue('visibility') !== 'hidden';
   },
 
   getVisibleResults: function() {
-    var containers = [];
+    const containers = [];
     return [
       // Main items
       ...Array.from(document.querySelectorAll(this.visibleResultsQuerySelector)).map(element => ({
@@ -73,14 +73,14 @@ var shortcuts = {
    * Determine if an input element is focused
    */
   isInputActive: function() {
-    var activeElement = document.activeElement;
-    return activeElement != null && (activeElement.nodeName == 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
+    const activeElement = document.activeElement;
+    return activeElement != null && (activeElement.nodeName === 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
   },
 
   // -- Highlight the active result
   // Results without valid containers will be removed.
   findContainer: function(link, containers) {
-    var container = link.closest(this.resultContainerQuerySelector);
+    const container = link.closest(this.resultContainerQuerySelector);
 
     // Only return valid, unused containers
     if (container != null && containers.indexOf(container) < 0) {
@@ -111,7 +111,7 @@ var shortcuts = {
   },
 
   focusResult: function(offset) {
-    var results = this.getVisibleResults();
+    const results = this.getVisibleResults();
 
     if (results.length <= 0) {
       console.warn('No results found. Extension may need to be updated.');
@@ -123,11 +123,11 @@ var shortcuts = {
     this.focusIndex = Math.min(this.focusIndex, results.length - 1);
     this.focusIndex = Math.max(this.focusIndex, 0);
 
-    var target = results[this.focusIndex];
+    const target = results[this.focusIndex];
 
     // Scroll the entire result container into view if it's not already.
-    var rect = target.container.getBoundingClientRect();
-    var offsetY = rect.bottom - window.innerHeight;
+    const rect = target.container.getBoundingClientRect();
+    const offsetY = rect.bottom - window.innerHeight;
     if (offsetY > 0) {
       window.scrollBy(0, offsetY);
     }

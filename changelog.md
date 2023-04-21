@@ -1,3 +1,6 @@
+1.1.16
+- Updated search box selector to accommodate Google search updates (now using textarea instead of input)
+
 1.1.15
 - Updated Google selectors.
 
