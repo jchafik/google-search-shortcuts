@@ -52,7 +52,9 @@
         shortcuts.focusResult(shouldNavigateNext ? 1 : -1);
       } else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
-        searchBox.value += ' ';
+        if (options.addSpaceOnFocus) {
+          searchBox.value += ' ';
+        }
         const searchBoxLength = searchBox.value.length;
         searchBox.focus();
         searchBox.setSelectionRange(searchBoxLength, searchBoxLength);
@@ -65,7 +67,9 @@
 
     window.addEventListener('keyup', (event) => {
       if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(event) && options.navigateWithJK && event.keyCode === KEYS.SLASH) {
-        searchBox.value += " ";
+        if (options.addSpaceOnFocus) {
+          searchBox.value += ' ';
+        }
         searchBox.focus();
       }
     });

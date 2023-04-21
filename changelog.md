@@ -1,5 +1,6 @@
 1.1.16
 - Updated search box selector to accommodate Google search updates (now using textarea instead of input)
+- Added option to include a space at the end of search query when focusing the search box
 
 1.1.15
 - Updated Google selectors.

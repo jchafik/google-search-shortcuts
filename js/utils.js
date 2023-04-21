@@ -23,8 +23,11 @@ const shortcuts = {
     // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
     navigateWithJK: false,
 
-    // Esc = select all text in search box
-    selectTextInSearchbox: false
+    // Esc = select all text in searchbox
+    selectTextInSearchbox: false,
+
+    // Add space on focus
+    addSpaceOnFocus: true
   },
 
   focusIndex: -1,
