@@ -26,7 +26,7 @@
       document.body.classList.add('useFancyHighlight');
     }
 
-    var searchbox = document.querySelector('form[role="search"] input[type="text"]:nth-of-type(1)');
+    var searchbox = document.querySelector('[role="combobox"],[type="search"]')
 
     window.addEventListener('keydown', function(e) {
       e = e || window.event;
@@ -61,7 +61,7 @@
       }
       else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
-        searchbox.value = searchbox.value + " ";
+        searchbox.value += " ";
         searchbox.focus();
       }
       else if (shouldActivateSearchAndHighlightText) {
@@ -75,7 +75,7 @@
       e = e || window.event;
 
       if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
-        searchbox.value = searchbox.value + " ";
+        searchbox.value += " ";
         searchbox.focus();
       }
     });
