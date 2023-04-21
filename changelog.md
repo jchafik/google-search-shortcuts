@@ -1,5 +1,31 @@
-1.1.10
+1.1.16
+- Updated search box selector to accommodate Google search updates (now using textarea instead of input)
 - Added option to include a space at the end of search query when focusing the search box
+
+1.1.15
+- Updated Google selectors.
+
+1.1.14
+- Fixed bug where first result would be skipped if auto focus first was not selected
+- Fixed array index out of bounds exception after last result
+- Added back navigation for footer links. Don't highlight footer links
+- Pulled addResultHighlight, findContainer back into their own methods
+- Removed focus/text property separation. Selector guarantees they'll always be the same
+- Style updates
+- Added safeguard to detect outdated selectors
+- Pulled all selectors out into their own properties
+
+1.1.13
+- Fix for issue #23. Updated Google selectors
+
+1.1.12
+- Fix for issue #19. Updated Google selectors
+
+1.1.11
+- Fix for issue #16. Updated Google selectors
+
+1.1.10
+- PR #15 - Updated selector to handle new search variation
 
 1.1.9
 - Don't wrap when arrow is prepended to search results

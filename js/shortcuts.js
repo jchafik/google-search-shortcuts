@@ -1,92 +1,89 @@
-(function() {
+(function () {
   'use strict';
 
   // Enforce that the script is only run on search result pages (Google Search or Google Scholar)
-  var isResultsPage = document.querySelector('html[itemtype="http://schema.org/SearchResultsPage"], .gs_r');
+  const isResultsPage = document.querySelector('html[itemtype="http://schema.org/SearchResultsPage"], .gs_r');
   if (!isResultsPage) {
     return;
   }
 
   // Globals
-  var KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
+  const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
 
-  // Load options
-  shortcuts.loadOptions(function(options) {
+  const addHighlightStyles = (options) => {
+    const body = document.body;
+    if (options.styleSelectedSimple || options.styleSelectedFancy) body.classList.add('useHighlight');
+    if (options.styleSelectedSimple) body.classList.add('useSimpleHighlight');
+    if (options.styleSelectedFancy) body.classList.add('useFancyHighlight');
+  };
 
-    // Styling is present
-    if (options.styleSelectedSimple || options.styleSelectedFancy) {
-      document.body.className += " useHighlight";
-    }
-    // Add simple highlight
-    if (options.styleSelectedSimple) {
-      document.body.className += " useSimpleHighlight";
-    }
+  const addNavigationListener = (options) => {
+    const searchBox = document.querySelector('form[role="search"] textarea:nth-of-type(1)');
 
-    var searchbox = document.querySelector('form[role="search"] input[type="text"]:nth-of-type(1)');
+    window.addEventListener('keydown', (event) => {
+      const keyPressed = event.keyCode;
+      const isInputOrModifierActive = shortcuts.isInputActive() || shortcuts.hasModifierKey(event),
 
-    window.addEventListener('keydown', function(e) {
-      e = e || window.event;
+        // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
+        isPrintable = (keyPressed >= 48 && keyPressed <= 57) || // number keys
+          (keyPressed >= 65 && keyPressed <= 90) || // letter keys
+          (keyPressed >= 96 && keyPressed <= 111) || // numpad keys
+          (keyPressed >= 186 && keyPressed <= 192) || // ;=,-./` (in order)
+          (keyPressed >= 219 && keyPressed <= 222),   // [\]' (in order)
 
-      var isInputOrModifierActive = shortcuts.isInputActive() || shortcuts.hasModifierKey(e),
+        shouldNavigateNext = (options.navigateWithArrows && keyPressed === KEYS.DOWN && !isInputOrModifierActive) ||
+          (options.navigateWithTabs && keyPressed === KEYS.TAB && !event.shiftKey) ||
+          (options.navigateWithJK && keyPressed === KEYS.J && !isInputOrModifierActive),
 
-          // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
-          isPrintable = (e.keyCode > 47 && e.keyCode < 58)   || // number keys
-                        (e.keyCode > 64 && e.keyCode < 91)   || // letter keys
-                        (e.keyCode > 95 && e.keyCode < 112)  || // numpad keys
-                        (e.keyCode > 185 && e.keyCode < 193) || // ;=,-./` (in order)
-                        (e.keyCode > 218 && e.keyCode < 223),   // [\]' (in order)
+        shouldNavigateBack = (options.navigateWithArrows && keyPressed === KEYS.UP && !isInputOrModifierActive) ||
+          (options.navigateWithTabs && keyPressed === KEYS.TAB && event.shiftKey) ||
+          (options.navigateWithJK && keyPressed === KEYS.K && !isInputOrModifierActive),
 
-          shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isInputOrModifierActive) ||
-                               (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && !e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.J    && !isInputOrModifierActive),
+        shouldActivateSearch = !isInputOrModifierActive && (
+          (options.activateSearch === true && isPrintable) ||
+          (options.activateSearch !== false && keyPressed === options.activateSearch)
+        ),
 
-          shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP   && !isInputOrModifierActive) ||
-                               (options.navigateWithTabs   && e.keyCode == KEYS.TAB  && e.shiftKey) ||
-                               (options.navigateWithJK     && e.keyCode == KEYS.K    && !isInputOrModifierActive),
-
-          shouldActivateSearch = !isInputOrModifierActive && (
-                                    (options.activateSearch === true && isPrintable) ||
-                                    (options.activateSearch !== false && e.keyCode === options.activateSearch)
-                                 ),
-          shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && e.keyCode == KEYS.ESC;
+        shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && keyPressed === KEYS.ESC;
 
       if (shouldNavigateNext || shouldNavigateBack) {
-        e.preventDefault();
-        e.stopPropagation();
-        shortcuts.focusResult(shouldNavigateNext ? 1 : -1, options.styleSelectedFancy);
-      }
-      else if (shouldActivateSearch) {
+        event.preventDefault();
+        event.stopPropagation();
+        shortcuts.focusResult(shouldNavigateNext ? 1 : -1);
+      } else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
-        searchbox.selectionStart = searchbox.selectionEnd = searchbox.value.length;
         if (options.addSpaceOnFocus) {
-          searchbox.value += " ";
+          searchBox.value += ' ';
         }
-        searchbox.focus();
-      }
-      else if (shouldActivateSearchAndHighlightText) {
-            window.scrollTo(0, 0);
-            searchbox.select();
-            searchbox.focus();
-        }
-    });
-
-    window.addEventListener('keyup', function(e) {
-      e = e || window.event;
-
-      if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
-        searchbox.selectionStart = searchbox.selectionEnd = searchbox.value.length;
-        if (options.addSpaceOnFocus) {
-          searchbox.value += " ";
-        }
-        searchbox.focus();
+        const searchBoxLength = searchBox.value.length;
+        searchBox.focus();
+        searchBox.setSelectionRange(searchBoxLength, searchBoxLength);
+      } else if (shouldActivateSearchAndHighlightText) {
+        window.scrollTo(0, 0);
+        searchBox.focus();
+        searchBox.select();
       }
     });
+
+    window.addEventListener('keyup', (event) => {
+      if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(event) && options.navigateWithJK && event.keyCode === KEYS.SLASH) {
+        if (options.addSpaceOnFocus) {
+          searchBox.value += ' ';
+        }
+        searchBox.focus();
+      }
+    });
+  };
+
+  // Load options
+  shortcuts.loadOptions((options) => {
+    addHighlightStyles(options);
+    addNavigationListener(options);
 
     // Auto select the first search result
     if (options.autoselectFirst === true) {
-      shortcuts.focusResult(1, options.styleSelectedFancy);
+      shortcuts.focusResult(1);
     }
-
   });
 
 })();

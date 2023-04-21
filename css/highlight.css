@@ -1,31 +1,37 @@
-.activeSearchResult {
-  border-left: 3px solid #4386fa !important;
+body.useFancyHighlight .activeSearchResultContainer a {
+  outline: 0;
+}
+
+body.useFancyHighlight .activeSearchResultContainer > div {
+    position: relative;
+}
+
+body.useFancyHighlight .activeSearchResultContainer {
+  border-left: 3px solid #2586fc !important;
   transform: translate(-3px, 0) !important;
 }
 
-div.g.activeSearchResult,
-li.ads-ad li.activeSearchResult,
-div.gs_r.activeSearchResult {
+body.useFancyHighlight div.g.activeSearchResultContainer,
+body.useFancyHighlight li.ads-ad li.activeSearchResultContainer,
+body.useFancyHighlight div.gs_r.activeSearchResultContainer {
   padding-left: 8px;
   margin-left: -11px;
   transform: none !important;
 }
 
-td.activeSearchResult {
-  padding-right: 0 !important;
+body.useFancyHighlight .activeSearchResultContainer img {
+  border-top: 3px solid #2586fc !important;
 }
 
-body.useSimpleHighlight h3 a:focus,
-body.useSimpleHighlight #search .r > a:focus {
-  white-space: nowrap;
-}
-
-body.useSimpleHighlight h3 a:focus:before,
-body.useSimpleHighlight #search .r > a:focus:before {
+body.useSimpleHighlight .activeSearchResult:before {
   content: '\25BA \00A0';
 }
 
-body.useHighlight h3 a:focus,
-body.useHighlight #search .r > a:focus {
+body.useSimpleHighlight .activeSearchResult {
+  white-space: nowrap;
   outline: 0;
+}
+
+div[role="navigation"] table a:focus {
+  text-decoration: underline;
 }
