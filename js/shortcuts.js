@@ -53,7 +53,7 @@
         shortcuts.focusResult(shouldNavigateNext ? 1 : -1);
       } else if (shouldActivateSearch) {
         // Otherwise, force caret to end of text and focus the search box
-        if (options.addSpaceOnFocus) {
+        if (options.addSpaceOnFocus && searchBox.value.indexOf(' ') === -1) {
           searchBox.value += ' ';
         }
         const searchBoxLength = searchBox.value.length;
