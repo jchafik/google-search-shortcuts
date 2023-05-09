@@ -8,7 +8,7 @@
   }
 
   // Globals
-  const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
+  const KEYS = {LEFT:37, UP: 38, RIGHT: 39, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
 
   const addHighlightStyles = (options) => {
     const body = document.body;
@@ -41,7 +41,8 @@
 
         shouldActivateSearch = !isInputOrModifierActive && (
           (options.activateSearch === true && isPrintable) ||
-          (options.activateSearch !== false && keyPressed === options.activateSearch)
+          (options.activateSearch !== false && keyPressed === options.activateSearch) ||
+          (options.navigateWithArrows && (event.keyCode === KEYS.LEFT || event.keyCode === KEYS.RIGHT))
         ),
 
         shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && keyPressed === KEYS.ESC;
