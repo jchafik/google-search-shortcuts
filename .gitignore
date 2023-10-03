@@ -1,5 +1,7 @@
 # Build
-package.zip
+*.zip
+*.sh
+*.patch
 
 # System Files
 .DS_Store
