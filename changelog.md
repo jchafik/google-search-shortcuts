@@ -1,7 +1,9 @@
+1.1.18
+- Further restricted domains the extension will run on
+
 1.1.17
 - Added option to include a space at the end of search query when focusing the search box
 - Updated selectors
-- Further restricted domains the extension will run on
 
 1.1.16
 - Updated search box selector to accommodate Google search updates (now using textarea instead of input)
