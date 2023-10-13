@@ -18,7 +18,7 @@
   };
 
   const addNavigationListener = (options) => {
-    const searchBox = document.querySelector('form[role="search"] textarea:nth-of-type(1)');
+    const searchBox = document.querySelector('form[role="search"] [name="q"]');
 
     window.addEventListener('keydown', (event) => {
       const keyPressed = event.keyCode;
