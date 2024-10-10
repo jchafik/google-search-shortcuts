@@ -27,7 +27,10 @@ const shortcuts = {
     selectTextInSearchbox: false,
 
     // Add space on focus
-    addSpaceOnFocus: true
+    addSpaceOnFocus: true,
+
+    // Enable Google special bindings
+    enableGoogleShortcuts: false
   },
 
   focusIndex: -1,

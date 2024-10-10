@@ -39,21 +39,25 @@
     window.addEventListener('keydown', (event) => {
       const keyPressed = event.keyCode;
 
-      if (keyPressed === KEYS.A) {    // A for All
-        navigateToTab('a[href^="/search"][href*="q="]:not([href*="tbm="]):not([href*="udm="])');
-        return
-      } else if (keyPressed === KEYS.I) {    // I for images
-        navigateToTab('a[href*="tbm=isch"], a[href*="udm=2&"], a[href$="udm=2"]')
-        return
-      } else if (keyPressed === KEYS.V) {    // V for videos
-        navigateToTab('a[href*="tbm=vid"], a[href*="udm=7&"], a[href$="udm=7"]')
-        return
-      } else if (keyPressed === KEYS.M) {    // M for maps
-        navigateToMaps()
-        return
+      const isInput = shortcuts.isInputActive();
+
+      if (options.enableGoogleShortcuts && !isInput && !(event.altKey || event.metaKey || event.ctrlKey)) {
+        if (keyPressed === KEYS.A) {    // A for All
+          navigateToTab('a[href^="/search"][href*="q="]:not([href*="tbm="]):not([href*="udm="])');
+          return
+        } else if (keyPressed === KEYS.I) {    // I for images
+          navigateToTab('a[href*="tbm=isch"], a[href*="udm=2&"], a[href$="udm=2"]')
+          return
+        } else if (keyPressed === KEYS.V) {    // V for videos
+          navigateToTab('a[href*="tbm=vid"], a[href*="udm=7&"], a[href$="udm=7"]')
+          return
+        } else if (keyPressed === KEYS.M) {    // M for maps
+          navigateToMaps()
+          return
+        }
       }
 
-      const isInputOrModifierActive = shortcuts.isInputActive() || shortcuts.hasModifierKey(event),
+      const isInputOrModifierActive = isInput || shortcuts.hasModifierKey(event),
 
         // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
         isPrintable = (keyPressed >= 48 && keyPressed <= 57) || // number keys
