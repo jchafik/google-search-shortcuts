@@ -8,7 +8,7 @@
   }
 
   // Globals
-  const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
+  const KEYS = {UP: 'ArrowUp', DOWN: 'ArrowDown', TAB: 'Tab', J: 'j', K: 'k', SLASH: '/', ESC: 'Escape'};
 
   const addHighlightStyles = (options) => {
     const body = document.body;
@@ -21,30 +21,25 @@
     const searchBox = document.querySelector('form[role="search"] textarea:nth-of-type(1)');
 
     window.addEventListener('keydown', (event) => {
-      const keyPressed = event.keyCode;
-      const isInputOrModifierActive = shortcuts.isInputActive() || shortcuts.hasModifierKey(event),
+      const key = event.key;
+      const noInputOrModifierActive = !shortcuts.isInputActive() && !shortcuts.hasModifierKey(event),
 
-        // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
-        isPrintable = (keyPressed >= 48 && keyPressed <= 57) || // number keys
-          (keyPressed >= 65 && keyPressed <= 90) || // letter keys
-          (keyPressed >= 96 && keyPressed <= 111) || // numpad keys
-          (keyPressed >= 186 && keyPressed <= 192) || // ;=,-./` (in order)
-          (keyPressed >= 219 && keyPressed <= 222),   // [\]' (in order)
+        isPrintable = key.length === 1 && !event.ctrlKey && !event.metaKey,
 
-        shouldNavigateNext = (options.navigateWithArrows && keyPressed === KEYS.DOWN && !isInputOrModifierActive) ||
-          (options.navigateWithTabs && keyPressed === KEYS.TAB && !event.shiftKey) ||
-          (options.navigateWithJK && keyPressed === KEYS.J && !isInputOrModifierActive),
+        shouldNavigateNext = (options.navigateWithArrows && key === KEYS.DOWN && noInputOrModifierActive) ||
+          (options.navigateWithTabs && key === KEYS.TAB && !event.shiftKey) ||
+          (options.navigateWithJK && key === KEYS.J && noInputOrModifierActive),
 
-        shouldNavigateBack = (options.navigateWithArrows && keyPressed === KEYS.UP && !isInputOrModifierActive) ||
-          (options.navigateWithTabs && keyPressed === KEYS.TAB && event.shiftKey) ||
-          (options.navigateWithJK && keyPressed === KEYS.K && !isInputOrModifierActive),
+        shouldNavigateBack = (options.navigateWithArrows && key === KEYS.UP && noInputOrModifierActive) ||
+          (options.navigateWithTabs && key === KEYS.TAB && event.shiftKey) ||
+          (options.navigateWithJK && key === KEYS.K && noInputOrModifierActive),
 
-        shouldActivateSearch = !isInputOrModifierActive && (
+        shouldActivateSearch = noInputOrModifierActive && (
           (options.activateSearch === true && isPrintable) ||
-          (options.activateSearch !== false && keyPressed === options.activateSearch)
+          (options.activateSearch !== false && key === options.activateSearch)
         ),
 
-        shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && keyPressed === KEYS.ESC;
+        shouldActivateSearchAndHighlightText = noInputOrModifierActive && options.selectTextInSearchbox && key === KEYS.ESC;
 
       if (shouldNavigateNext || shouldNavigateBack) {
         event.preventDefault();
@@ -66,7 +61,7 @@
     });
 
     window.addEventListener('keyup', (event) => {
-      if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(event) && options.navigateWithJK && event.keyCode === KEYS.SLASH) {
+      if (!shortcuts.isInputActive() && !shortcuts.hasModifierKey(event) && options.navigateWithJK && event.key === KEYS.SLASH) {
         if (options.addSpaceOnFocus) {
           searchBox.value += ' ';
         }

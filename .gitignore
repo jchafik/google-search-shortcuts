@@ -2,6 +2,7 @@
 *.zip
 *.sh
 *.patch
+shortcuts-meta/
 
 # System Files
 .DS_Store

@@ -1,3 +1,6 @@
+1.1.19
+- Updated Google selectors. Deprecation cleanup.
+
 1.1.18
 - Further restricted domains the extension will run on
 
@@ -12,7 +15,7 @@
 - Updated Google selectors.
 
 1.1.14
-- Fixed bug where first result would be skipped if auto focus first was not selected
+- Fixed bug where first result would be skipped if autofocus first was not selected
 - Fixed array index out of bounds exception after last result
 - Added back navigation for footer links. Don't highlight footer links
 - Pulled addResultHighlight, findContainer back into their own methods

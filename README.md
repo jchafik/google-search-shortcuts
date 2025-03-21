@@ -8,6 +8,6 @@ https://addons.mozilla.org/en-US/firefox/addon/google-search-result-shortcuts/
 
 If you like this extension, feel free to
 
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PEJZTNL3BMEAL" target="_blank">
-  <img src="img/donate.gif" border="0" alt="Donate" />
+<a href="https://www.paypal.com/donate/?hosted_button_id=GRHD9S4J6HC9N" target="_blank">
+  <img src="img/donate.png" alt="Donate" />
 </a>

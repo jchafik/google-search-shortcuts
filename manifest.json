@@ -3,7 +3,7 @@
   "minimum_chrome_version": "88",
   "name": "Google Search Keyboard Shortcuts",
   "description": "Adds keyboard shortcuts/hotkeys back to Google search results",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "icons": {
     "16": "img/icon16.png",
     "32": "img/icon32.png",

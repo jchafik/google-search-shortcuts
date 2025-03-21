@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var extOptions = {};
+  let extOptions = {};
 
   function displayDialog() {
     document.getElementById('dialog').style.marginTop = '0px';
@@ -17,8 +17,8 @@
     document.getElementById('styleSelectedSimple').checked = extOptions.styleSelectedSimple;
     document.getElementById('styleSelectedFancy').checked = extOptions.styleSelectedFancy;
     document.getElementById('activateSearch').checked = extOptions.activateSearch;
-    document.getElementById('autoselectFirst').checked = extOptions.autoselectFirst;
-    document.getElementById('selectTextInSearchbox').checked = extOptions.selectTextInSearchbox;
+    document.getElementById('autoSelectFirst').checked = extOptions.autoselectFirst;
+    document.getElementById('selectTextInSearchBox').checked = extOptions.selectTextInSearchbox;
     document.getElementById('addSpaceOnFocus').checked = extOptions.addSpaceOnFocus;
   }
 
@@ -29,8 +29,8 @@
     extOptions.styleSelectedSimple = document.getElementById('styleSelectedSimple').checked === true;
     extOptions.styleSelectedFancy = document.getElementById('styleSelectedFancy').checked === true;
     extOptions.activateSearch = document.getElementById('activateSearch').checked === true;
-    extOptions.autoselectFirst = document.getElementById('autoselectFirst').checked === true;
-    extOptions.selectTextInSearchbox = document.getElementById('selectTextInSearchbox').checked === true;
+    extOptions.autoselectFirst = document.getElementById('autoSelectFirst').checked === true;
+    extOptions.selectTextInSearchbox = document.getElementById('selectTextInSearchBox').checked === true;
     extOptions.addSpaceOnFocus = document.getElementById('addSpaceOnFocus').checked === true;
     persistOptions();
   }
