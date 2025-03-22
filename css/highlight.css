@@ -14,7 +14,8 @@ body.useFancyHighlight .activeSearchResultContainer {
 body.useFancyHighlight div.g.activeSearchResultContainer,
 body.useFancyHighlight li.ads-ad li.activeSearchResultContainer,
 body.useFancyHighlight div.gs_r.activeSearchResultContainer,
-body.useFancyHighlight div[jscontroller][data-ved].activeSearchResultContainer {
+body.useFancyHighlight div[data-ved].activeSearchResultContainer,
+body.useFancyHighlight div[lang][data-hveid][data-ved].activeSearchResultContainer{
   padding-left: 8px;
   margin-left: -11px;
   transform: none !important;

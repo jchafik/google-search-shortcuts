@@ -63,7 +63,18 @@ const shortcuts = {
     // hidden ancestor element.
     ':not([aria-hidden="true"] a)',
 
-  resultContainerQuerySelector: 'div.gs_r, div.g, li, td, div[jscontroller][data-ved]',
+  resultContainerQuerySelector: [
+    'div[jscontroller][data-ved]', // Standard web result
+    'div[lang][data-hveid][data-ved]', // Web result with site links
+
+    // Pagination
+    'td',
+
+    // Obsolete / Possible fallbacks? Search results
+    'div.gs_r',
+    'div.g',
+    'li'
+  ].join(', '),
   navigationContainerQuerySelector: 'div[role="navigation"] table',
   navigationLinksAndSuggestedSearchesQuerySelector: 'div[role="navigation"] table a, #botstuff a',
 

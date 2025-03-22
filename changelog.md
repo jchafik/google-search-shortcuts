@@ -1,3 +1,6 @@
+1.1.20
+- Updated Google selectors - Web result with child links
+
 1.1.19
 - Updated Google selectors. Deprecation cleanup.
 
