@@ -77,7 +77,7 @@
 
     // Auto select the first search result
     if (options.autoselectFirst === true) {
-      shortcuts.focusResult(1);
+      shortcuts.focusResult(1, false);
     }
   });
 
