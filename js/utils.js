@@ -151,7 +151,7 @@ const shortcuts = {
     target.focusElement.addEventListener('blur', removeResultHighlight);
   },
 
-  focusResult: function(offset) {
+  focusResult: function(offset, shouldScroll = true) {
     const results = this.getVisibleResults();
 
     if (results.length <= 0) {
@@ -166,14 +166,16 @@ const shortcuts = {
 
     const target = results[this.focusIndex];
 
-    // Scroll the entire result container into view if it's not already.
-    const rect = target.container.getBoundingClientRect();
-    const offsetY = rect.bottom - window.innerHeight;
-    if (offsetY > 0) {
-      window.scrollBy(0, offsetY);
+    if (shouldScroll) {
+      // Scroll the entire result container into view if it's not already.
+      const rect = target.container.getBoundingClientRect();
+      const offsetY = rect.bottom - window.innerHeight;
+      if (offsetY > 0) {
+        window.scrollBy(0, offsetY);
+      }
     }
 
-    target.focusElement.focus();
+    target.focusElement.focus({preventScroll: !shouldScroll});
     this.addResultHighlight(target);
   }
 };
